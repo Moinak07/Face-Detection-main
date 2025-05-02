@@ -1,66 +1,69 @@
 # Face Detection and Recognition
 
-This project implements a face detection and recognition system using OpenCV and a pre-trained Haar Cascade classifier. It collects face data, processes it, and uses a trained model to recognize individuals.
+This project is a Python-based face recognition system that allows you to collect face images, train a deep learning model, and recognize people in real time using your laptop's webcam.
+
+## Features
+- Data Collection: Collect face images for any number of people using your phone's IP Webcam app or a webcam.
+- Flexible Dataset: Add new people at any time. All data is appended automatically.
+- Model Training: Train a Convolutional Neural Network (CNN) on your collected data.
+- Real-Time Recognition: Recognize faces live using your webcam.
+- Easy Reset: Delete all collected data to start a new dataset without changing any code.
+
 
 ## Project Structure
-FaceRecognitionProject
-
-├── consolidated_data.py              
-├── final_model.h5                    
-├── haarcascade_frontalface_default.xml    
-├── recognize.py                  
-├── README.md                         
+Face-Detection-main/
+│
+├── collect_data.py        # Script to collect and append face images and labels
+├── train.py               # Script to train the CNN model
+├── recognize.py           # Script for real-time face recognition
+├── Clean Data/            # Folder where images and labels are stored
+│   ├── Images.p
+│   └── labels.p
+├── face_recognition_model.h5  # Trained model (generated after training)
+├── label_encoder.p            # Label encoder (generated after training)
+└── haarcascade_frontalface_default.xml #Haar Cascade file for face detection                     
 
 
 
 ## Requirements
-
 - Python 3.x
-- OpenCV
+- OpenCV (opencv-python)
 - NumPy
-- Matplotlib
-- Pickle
+- Keras
+- TensorFlow
+- scikit-learn
+- Pickle (part of Python standard library)
 
-Install the required libraries using:
+## Install All Required Libraries
+- pip install opencv-python numpy keras tensorflow scikit-learn
+- pip install matplotlib (optional)
 
-```bash
-pip install opencv-python numpy matplotlib
-
-
-How to Use
-1. Collect Face Data
+## How to Use
+1) Collect Face Data 
+Install "IP Webcam" on your phone and connect it to your computer.
 Run the collect_data.py script to collect face data from a video stream.
-python [collect_data.py](http://_vscodecontentref_/7)
+
+Enter your IP Webcam URL (e.g., http://100.165.30.213:8000/shot.jpg) or use your webcam.
+The script will collect images for one person at a time.
+Enter the person's name when prompted.
+Repeat for each new person. Data is appended automatically.
+
+2) Train the Model
+Run the train.py script to train the CNN model on the collected data.
+This will train a CNN model and save it as face_recognition_model.h5 along with the label encoder.
+
+3) Recognize Faces
+Run the recognize.py script to recognize faces in real-time using the trained model.
+The webcam will open and display the recognized person's name above their face.
+If the model is not confident, it will display "Unknown".
+
+4) Reset Data
+To start a new data collection (delete all previous records):
+
+Delete the files Clean Data/Images.p 
+                 Clean Data/labels.p
+Run collect_data.py again to begin collecting new data.
 
 
-The script captures 100 face images from the video stream.
-Enter the name of the person when prompted. The images will be saved in the Images/ directory.
-2. Consolidate Data
-Run the consolidated_data.py script to preprocess and consolidate the collected data.
-python [consolidated_data.py](http://_vscodecontentref_/8)
-
-The script resizes, converts to grayscale, and stores the images and labels in the Clean Data/ directory as .p files.
-3. Recognize Faces
-Run the recognize.py script to recognize faces using the pre-trained model.
-
-python [recognize.py](http://_vscodecontentref_/9)
 
 
-The script uses the final_model.h5 file to predict the identity of the person in the video stream.
-
-Key Features
-Face Detection: Uses Haar Cascade to detect faces in real-time.
-Data Preprocessing: Resizes, converts to grayscale, and normalizes images for model training.
-Face Recognition: Recognizes faces using a pre-trained deep learning model.
-
-
-File Descriptions
-collect_data.py: Captures face images from a video stream and saves them with labels.
-consolidated_data.py: Preprocesses the collected images and stores them for training.
-recognize.py: Recognizes faces using the pre-trained model.
-haarcascade_frontalface_default.xml: Haar Cascade XML file for face detection.
-final_model.h5: Pre-trained model for face recognition.
-
-
-License
-This project is licensed under the MIT License.
